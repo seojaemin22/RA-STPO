@@ -1,0 +1,8 @@
+numpy==2.4.6
+scipy==1.17.1
+pandas==3.0.5
+pyarrow==25.0.0
+torch==2.11.0
+cvxpy==1.9.2
+scs==3.2.11
+yfinance==1.7.0
