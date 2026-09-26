@@ -20,15 +20,15 @@ from rastpo.data import file_hash, save_json
 
 def resolve_price_paths(prices: list[str | Path] | None = None,
                         raw_dir: Path = DATA_ROOT / "raw") -> list[Path]:
-    """Use completed Yahoo downloads by default, or resolve explicit input paths."""
+    """Use the bundled price snapshot by default, or resolve explicit input paths."""
     project_root = ROOT
     records = None
     if prices is None:
         manifest = raw_dir.expanduser().resolve() / "manifest.json"
         if not manifest.is_file():
             raise FileNotFoundError(
-                f"Downloaded data not found in {manifest.parent}. "
-                "Run python data/download.py first, or supply --prices PATH ..."
+                f"Price manifest not found in {manifest.parent}. "
+                "Restore data/raw/ from the repository, or supply --prices PATH ..."
             )
         records = json.loads(manifest.read_text())["markets"]
         prices = [manifest.parent / record["file"] for record in records]
@@ -47,7 +47,7 @@ def resolve_price_paths(prices: list[str | Path] | None = None,
         raise FileNotFoundError(
             "Price files not found:\n  " + "\n  ".join(missing)
             + "\nSupply existing files with --prices, or omit --prices to use "
-            "the completed Yahoo downloads."
+            "the bundled price snapshot."
         )
     if len({path.stem for path in paths}) != len(paths):
         raise ValueError("each input panel must have a distinct filename stem")
@@ -55,8 +55,8 @@ def resolve_price_paths(prices: list[str | Path] | None = None,
         for path, record in zip(paths, records):
             if file_hash(path) != record["sha256"]:
                 raise ValueError(
-                    f"Downloaded price data failed its checksum: {path}. "
-                    "Run data/download.py --refresh for this raw directory, "
+                    f"Price data failed its checksum: {path}. "
+                    "Restore the original file from the repository, "
                     "or use --prices to provide a custom dataset."
                 )
     return paths
@@ -81,8 +81,8 @@ def prepare(
 ) -> dict:
     """Create a reusable cache from arbitrary dated price-parquet panels.
 
-    The input list determines the market-embedding order; None selects completed
-    Yahoo downloads. Existing caches are accepted only when all input hashes and
+    The input list determines the market-embedding order; None selects the bundled
+    price snapshot. Existing caches are accepted only when all input hashes and
     preparation settings match.
     """
     if representation not in {"window", "raw"}:
@@ -235,7 +235,7 @@ def prepare(
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--prices", nargs="+", help="Adjusted-price Parquet panels in market-embedding order; default: data/raw/")
-    parser.add_argument("--raw-dir", type=Path, default=DATA_ROOT / "raw", help="Directory containing the download manifest")
+    parser.add_argument("--raw-dir", type=Path, default=DATA_ROOT / "raw", help="Directory containing the price manifest")
     parser.add_argument("--output", type=Path, default=DATA_ROOT / "processed", help="Directory for window/ and raw/ datasets")
     parser.add_argument("--representation", choices=["window", "raw", "all"], default="all")
     parser.add_argument("--lookback", type=int, default=100)

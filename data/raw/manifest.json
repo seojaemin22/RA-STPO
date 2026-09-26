@@ -1,0 +1,45 @@
+{
+  "description": "Filtered adjusted closing-price panels used in the paper, in market-embedding order.",
+  "markets": [
+    {
+      "file": "ESTX50.parquet",
+      "sha256": "6b1999aa01389235ecdeca1f0047b79e09ab05bb16004251e291e8cb3a1c4b37",
+      "assets": 46,
+      "observations": 2561,
+      "first_date": "2016-01-04",
+      "last_date": "2025-12-31"
+    },
+    {
+      "file": "FTSE100.parquet",
+      "sha256": "5b511d4ece4261ca27e73792bd54f6360f83a3eb42c1a2cb5ce2c8ab402bd699",
+      "assets": 92,
+      "observations": 2526,
+      "first_date": "2016-01-04",
+      "last_date": "2025-12-31"
+    },
+    {
+      "file": "KOSPI200.parquet",
+      "sha256": "72b869908b02fc52462b6aa52008ee9457c832010e920b7dcaa0a21dc9232930",
+      "assets": 159,
+      "observations": 2447,
+      "first_date": "2016-01-04",
+      "last_date": "2025-12-30"
+    },
+    {
+      "file": "NIKKEI225.parquet",
+      "sha256": "76e957087581d661c1738750e12018a045246e3dfa3b4f0bca2c25b73ae79a5d",
+      "assets": 214,
+      "observations": 2465,
+      "first_date": "2016-01-04",
+      "last_date": "2025-12-30"
+    },
+    {
+      "file": "SP500.parquet",
+      "sha256": "0950b0275832938c27ab35e55e283bbd0ded22fef04daea5c0938cfbadef75ea",
+      "assets": 465,
+      "observations": 2514,
+      "first_date": "2016-01-04",
+      "last_date": "2025-12-31"
+    }
+  ]
+}
