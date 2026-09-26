@@ -14,16 +14,17 @@ python -m pip install -r requirements.txt
 
 ## Prepare the data
 
-Download prices from Yahoo Finance, then preprocess them:
+`data/raw/` contains the fixed Yahoo Finance adjusted-price snapshot used in the paper.
+A separate [Yahoo-derived Kaggle archive](https://www.kaggle.com/datasets/benjaminpo/finance-dataset/versions/47)
+was used to cross-check selected historical records.
+
+Preprocess the bundled prices:
 
 ```bash
-python data/download.py
 python data/prepare.py
 ```
 
-`data/universe.json` fixes the paper's assets and dates. Prices go to `data/raw/`
-and model inputs to `data/processed/`; neither is included in Git.
-New Yahoo downloads may differ from the original historical snapshot.
+Model inputs are written to `data/processed/`.
 
 ## Run the main experiments
 
